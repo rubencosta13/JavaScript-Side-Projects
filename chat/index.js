@@ -4,7 +4,7 @@ import {fileURLToPath} from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const app = express()
-
+const chatMessageContent = {}
 
 app.use(express.urlencoded({ extended: true}))
 app.use(express.static(path.resolve(__dirname, 'public')))
@@ -16,8 +16,9 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-    console.log(req.body)
-    res.send(req.body)
+    chatMessageContent[req.body.name] = req.body.text
+    console.log(chatMessageContent)
+    res.send(chatMessageContent[req.body.name])
 })
 
 app.listen(4000)
